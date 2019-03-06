@@ -2,6 +2,9 @@
 
 > basic todo app with vue js
 
+## Live Demo
+<https://vue-todolistko.netlify.com/>
+
 ## Build Setup
 
 ``` bash
