@@ -1,24 +1,26 @@
 {
   "name": "vue-todo",
   "version": "1.0.0",
+  "private": true,
   "description": "basic todo app with vue js",
   "author": "Julius Guevarra <juliusguevarra101@gmail.com>",
-  "private": true,
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
-    "start": "npm run dev",
-    "unit": "jest --config test/unit/jest.conf.js --coverage",
+    "build": "node build/build.js",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
-    "build": "node build/build.js"
+    "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "start": "npm run dev",
+    "unit": "jest --config test/unit/jest.conf.js --coverage"
   },
   "dependencies": {
     "google-fonts-webpack-plugin": "^0.4.4",
     "moment": "^2.24.0",
+    "register-service-worker": "^1.5.2",
     "uuid": "^3.3.2",
     "vue": "^2.5.2"
   },
   "devDependencies": {
+    "@vue/cli-plugin-pwa": "^3.4.1",
     "autoprefixer": "^7.1.2",
     "babel-core": "^6.22.1",
     "babel-eslint": "^8.2.1",
@@ -75,13 +77,13 @@
     "webpack-dev-server": "^2.9.1",
     "webpack-merge": "^4.1.0"
   },
-  "engines": {
-    "node": ">= 6.0.0",
-    "npm": ">= 3.0.0"
-  },
   "browserslist": [
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "engines": {
+    "node": ">= 6.0.0",
+    "npm": ">= 3.0.0"
+  }
 }
