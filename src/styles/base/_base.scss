@@ -1,0 +1,52 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  height: auto;
+}
+
+body {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: $off-black;
+  font-size: 1.6rem;
+  height: auto;
+  background: linear-gradient(45deg, $l-blue 60%, $d-blue) no-repeat center;
+  padding-bottom: 30rem;
+}
+
+h1, 
+h2,
+h3,
+h4,
+h5,
+h6,
+button {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+p, 
+span,
+input,
+::-webkit-input-placeholder,
+::placeholder  {
+  font-family: 'Open Sans', sans-serif;
+}
+
+button {
+  color: #fff;
+  border: none;
+  font-weight: bold;
+  padding: $s-size $l-size;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+button:focus {
+  outline: none;
+}

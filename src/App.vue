@@ -1,10 +1,13 @@
 <template>
-  <div class="todo">
-    <input @change="onInputChange" type="text" v-model="inputValue">
-    <button @click="addTask">Add Task</button>
-    <template v-for="todo in tasks">
-      <TodoItem :todo="todo" :key="todo.id" />
-    </template>
+  <div class="container">
+    <Actions 
+      @inputHasChanged="onInputChange($event)" 
+      :addTask="addTask" 
+      :input="inputValue"/>
+    <TodoList 
+      :deleteTask="deleteTask" 
+      :tasks="tasks"
+      :deleteAllTask="deleteAllTask"/>
   </div>
 </template>
 
@@ -12,49 +15,69 @@
 import moment from 'moment'
 import uuid from 'uuid'
 
-import TodoItem from './components/TodoItem'
+import Actions from './components/Actions'
+import TodoList from './components/TodoList'
 
 export default {
   name: 'App',
-  data: function () {
+  data () {
     return {
       inputValue: '',
       tasks: []
     }
   },
+  created () {
+    if ('localStorage' in window && localStorage.tasks) {
+      this.tasks = JSON.parse(localStorage.getItem('tasks'))
+    }
+  },
   methods: {
     onInputChange (e) {
-      const val = e.target.value
-      this.inputValue = val
+      this.inputValue = e
     },
     addTask () {
-      this.tasks = [
-        ...this.tasks,
-        {
-          id: uuid(),
-          createdAt: moment().valueOf(),
-          task: this.inputValue,
-          status: 'unfinished' 
-        }
-      ]
+      if (this.inputValue !== '') {
+        this.tasks = [
+          {
+            id: uuid(),
+            createdAt: moment().valueOf(),
+            task: this.inputValue
+          },
+          ...this.tasks
+        ]
+      } 
+      this.inputValue = ''
+    },
+    deleteTask (id) {
+      this.tasks = this.tasks.filter((task) => {
+        return task.id !== id
+      })
+    },
+    deleteAllTask () {
+      this.tasks = []
     }
   },
   components: {
-    TodoItem
+    Actions,
+    TodoList
+  },
+  watch: {
+    tasks () {
+      if ('localStorage' in window) {
+        localStorage.setItem('tasks', JSON.stringify(this.tasks))
+      }
+    }
   }
 }
 </script>
 
-<style scoped>
-div {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
+<style lang="scss">
+@import './styles/imports';
 
-.todo {
-  padding: 4rem 2rem;
+.container {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: $xl-size $m-size $xl-size $m-size;
 }
 
 </style>
